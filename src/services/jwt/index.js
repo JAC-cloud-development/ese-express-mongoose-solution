@@ -5,7 +5,7 @@ import { db } from '../db/fakedb.js'
 export default function validateJWT(request, response, next) {
     try {
         var decoded = jwt.verify(request.headers.authorization.split(" ")[1], 'secret');
-        const user = _.find(db.users.list(), (u) => u.id.toString() === decoded.id.toString())
+        const user = _.find(db.users.list(), (u) => u.id.toString() === decoded.user.id.toString())
         console.log({ user })
         if (user) {
             request.user = user;
