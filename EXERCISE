@@ -5,4 +5,4 @@
    //token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxfSwiaWF0IjoxNjQ0OTI1MzU0fQ.5QEKzNv5qHkXWw2nc2lG7-1VG-aWPI3UFMeSu0WerJU
 4. prendendo spunto dall'implementazione di items definire un modello per users con i campi stringa "username" e "password"
 5. inserire a mano un utente a database e verificare che le chiamate funzionino
-6. utilizzare il modello (importandolo) anche nelle chiamate auth per fare in modo che anche queste chiamate facciano il check dell'utente tramite chiamate al database
+6. utilizzare il modello (importandolo) anche nelle chiamate auth per fare in modo che anche queste chiamate facciano il check dell'utente tramite chiamate al database eseguendo la query (tramite find) per cercare un utente che abbia uguale username e uguale password a quello parsato dalla chiamata login
