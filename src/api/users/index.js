@@ -1,34 +1,37 @@
 // require the express module
 import _ from 'lodash'
 import { Router } from 'express';
-import { db } from '../../services/db/fakedb.js'
+import Users from './model.js'
 import validateJWT from '../../services/jwt/index.js'
 
 const router = new Router();
 
-router.get("/", validateJWT, function (request, response) {
-  return response.json(_.map(db.users.list(), (user) => _.omit(user, 'password')));
+router.get("/", validateJWT, async function (request, response) {
+  return response.json(await Users.find());
 });
 
-router.get("/:id", validateJWT, function (request, response) {
-  const element = db.users.get(request.params.id)
-  return element ? response.json(_.omit(element, 'password')) : response.sendStatus(404);
-});
-
-router.post("/", validateJWT, function (request, response) {
-  db.users.insert(request.body);
-  return response.sendStatus(201);
-});
-
-router.put("/:id", validateJWT, function (request, response) {
-  db.users.update(request.params.id, request.body);
-  const element = _.find(db.users.list(), (i) => i.id.toString() === request.params.id)
+router.get("/:id", validateJWT, async function (request, response) {
+  const element = await Users.findOne({ _id: request.params.id });
   return element ? response.json(element) : response.sendStatus(404);
 });
 
-router.delete("/:id", validateJWT, function (request, response) {
-  db.users.delete(request.params.id);
-  return response.sendStatus(204);
+router.post("/", validateJWT, async function (request, response) {
+  return response.json(await Users.create(request.body));
 });
+
+router.put("/:id", validateJWT, async function (request, response) {
+  const element = await Users.findOne({ _id: request.params.id });
+  if (element) {
+    element.set(request.body)
+    await element.save();
+  }
+  return element ? response.json(element) : response.sendStatus(404);
+});
+
+router.delete("/:id", validateJWT, async function (request, response) {
+  const result = await Users.deleteOne({ _id: request.params.id });
+  return result.deletedCount > 0 ? response.sendStatus(204) : response.sendStatus(404);
+});
+
 
 export default router;
