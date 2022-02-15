@@ -13,7 +13,7 @@ const defaults = {
     }],
     users: [{
         id: 1,
-        username: "aaddmin",
+        username: "admin",
         password: "passwordSegreta"
     }]
 };

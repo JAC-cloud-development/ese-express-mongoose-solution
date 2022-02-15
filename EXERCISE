@@ -1,0 +1,7 @@
+0. configurare mongoose in modo che si connetta al database in ATLAS
+1. estendere lo schema definito in items aggiungendo un campo numerico Quantity
+2. aggiungere in items campo stringa type di tipo enumerativo che accetta solo null, "STANDARD" e "PREMIUM"
+3. testare le chiamate in items (se necessario effettuare il login tramite utente user:"admin" password: "passwordSegreta" per ottenere il JWT)
+4. prendendo spunto dall'implementazione di items definire un modello per users con i campi stringa "username" e "password"
+5. inserire a mano un utente a database e verificare che le chiamate funzionino
+6. utilizzare il modello (importandolo) anche nelle chiamate auth per fare in modo che anche queste chiamate facciano il check dell'utente tramite chiamate al database
